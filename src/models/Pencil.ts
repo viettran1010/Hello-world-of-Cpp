@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { Pupil } from './Pupil';
 
 @Entity('pencils')
 export class Pencil extends BaseEntity {
@@ -22,4 +23,11 @@ export class Pencil extends BaseEntity {
 
     @Column()
     type: string;
+
+    @Column({ type: 'int' })
+    pupil_id: number;
+
+    @ManyToOne(() => Pupil, pupil => pupil.pencils)
+    @JoinColumn({ name: 'pupil_id' })
+    pupil: Pupil;
 }
